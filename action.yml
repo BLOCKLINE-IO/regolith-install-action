@@ -1,0 +1,6 @@
+name: "Setup Regolith"
+description: "Install Regolith CLI"
+author: "nikitafine"
+runs:
+  using: "node16"
+  main: "index.js"

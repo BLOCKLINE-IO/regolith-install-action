@@ -9,10 +9,10 @@ async function run() {
     const downloadPath = await tc.downloadTool(url);
 
     const regolithExtracted = await tc.extractTar(downloadPath)
-    await exec.exec(`rm regolith_0.0.17_Linux_x86_64.tar.gz`);
-    await exec.exec(`rm LICENSE`);
-    await exec.exec(`rm LICENSE.rtf`);
-    await exec.exec(`rm README.md`);
+    //await exec.exec(`rm regolith_0.0.17_Linux_x86_64.tar.gz`);
+    //await exec.exec(`rm LICENSE`);
+    //await exec.exec(`rm LICENSE.rtf`);
+    //await exec.exec(`rm README.md`);
     await exec.exec(`chmod u+x ${regolithExtracted}`);
     await io.mv(regolithExtracted, "/usr/local/bin");
     exec.exec("regolth --help");

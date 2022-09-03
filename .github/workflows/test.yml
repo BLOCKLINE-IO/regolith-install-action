@@ -23,8 +23,6 @@ jobs:
 
     - name: Setup regolith
       uses: ./
-      with:
-        version: ${{ matrix.version }}
     
     - run: env
     - name: check regolith version

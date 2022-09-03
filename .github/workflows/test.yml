@@ -24,10 +24,5 @@ jobs:
     - name: Setup regolith
       uses: ./
 
-    - uses: github-developer/setup-gh@v1
-
-    - run: gh --version
-    
-    - run: env
     - name: check regolith version
       run: regolith -v

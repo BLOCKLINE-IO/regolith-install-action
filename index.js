@@ -14,13 +14,15 @@ async function setup() {
     const pathToTarball = await tc.downloadTool(download.url);
 
     // Extract the tarball/zipball onto host runner
+    const platform = os.platform();
     const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
-    exec.exec(`chmod u+x ${path.join(pathToCLI, 'regolith')}`);
-    exec.exec(`ls -l ${pathToCLI}`);
+    if (platform != 'win32') {
+      exec.exec(`chmod u+x ${path.join(pathToCLI, 'regolith')}`);
+    }
 
     // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, 'regolith'));
+    core.addPath(path.join(pathToCLI));
   } catch (e) {
     core.setFailed(e);
   }

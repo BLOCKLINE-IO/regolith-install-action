@@ -16,10 +16,10 @@ async function setup() {
     // Extract the tarball/zipball onto host runner
     const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
-    exec.exec(`chmod u+x ${download.binPath}`);
+    exec.exec(`chmod u+x ${path.join(pathToCLI, 'regolith')}`);
 
     // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, download.binPath));
+    core.addPath(path.join(pathToCLI, 'regolith'));
   } catch (e) {
     core.setFailed(e);
   }

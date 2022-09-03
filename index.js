@@ -3,6 +3,7 @@ const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
 const exec = require("@actions/exec");
 const { getDownloadObject } = require('./lib/utils');
+const os = require('os');
 
 async function setup() {
   try {

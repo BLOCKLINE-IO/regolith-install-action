@@ -9,6 +9,7 @@ const core = __nccwpck_require__(4378);
 const tc = __nccwpck_require__(4113);
 const exec = __nccwpck_require__(8498);
 const { getDownloadObject } = __nccwpck_require__(2462);
+const os = __nccwpck_require__(2037);
 
 async function setup() {
   try {

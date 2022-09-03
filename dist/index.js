@@ -16,12 +16,12 @@ async function setup() {
     const version = core.getInput('version');
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = getDownloadObject(version);
-    const pathToTarball = await tc.downloadTool(download.url);
+    const download = getDownloadObject(version); // url
+    const pathToTarball = await tc.downloadTool(download);
 
     // Extract the tarball/zipball onto host runner
     const platform = os.platform();
-    const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
+    const extract = download.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
     if (platform != 'win32') {
       exec.exec(`chmod u+x ${path.join(pathToCLI, 'regolith')}`);
@@ -77,7 +77,6 @@ function getDownloadObject(version) {
   const filename = `regolith_${ version }_${ mapOS(platform) }_${ mapArch(os.arch()) }`;
   const extension = platform === 'win32' ? 'zip' : 'tar.gz';
   const url = `https://github.com/Bedrock-OSS/regolith/releases/download/${ version }/${ filename }.${ extension }`;
-  console.log(url);
   return url;
 }
 

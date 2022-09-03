@@ -17,6 +17,7 @@ async function setup() {
     const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
     exec.exec(`chmod u+x ${path.join(pathToCLI, 'regolith')}`);
+    exec.exec(`ls -l ${pathToCLI}`);
 
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, 'regolith'));

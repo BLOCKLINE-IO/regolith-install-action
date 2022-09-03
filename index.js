@@ -1,23 +1,30 @@
-const core = require("@actions/core");
-const exec = require("@actions/exec");
-const tc = require("@actions/tool-cache");
-const io = require("@actions/io");
+const path = require('path');
+const core = require('@actions/core');
+const tc = require('@actions/tool-cache');
+const { getDownloadObject } = require('./lib/utils');
 
-async function run() {
-    const url = "https://github.com/Bedrock-OSS/regolith/releases/download/0.0.17/regolith_0.0.17_Linux_x86_64.tar.gz";
+async function setup() {
+  try {
+    // Get version of tool to be installed
+    const version = core.getInput('version');
 
-    const downloadPath = await tc.downloadTool(url);
+    // Download the specific version of the tool, e.g. as a tarball/zipball
+    const download = getDownloadObject(version);
+    const pathToTarball = await tc.downloadTool(download.url);
 
-    const regolithExtracted = await tc.extractTar(downloadPath)
-    //await exec.exec(`rm regolith_0.0.17_Linux_x86_64.tar.gz`);
-    //await exec.exec(`rm LICENSE`);
-    //await exec.exec(`rm LICENSE.rtf`);
-    //await exec.exec(`rm README.md`);
-    await exec.exec(`chmod u+x ${regolithExtracted}`);
-    await io.mv(regolithExtracted, "/usr/local/bin");
-    exec.exec("regolth --help");
+    // Extract the tarball/zipball onto host runner
+    const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
+    const pathToCLI = await extract(pathToTarball);
+
+    // Expose the tool by adding it to the PATH
+    core.addPath(path.join(pathToCLI, download.binPath));
+  } catch (e) {
+    core.setFailed(e);
+  }
 }
 
-run().catch(function(error) {
-    core.setFailed(`Action error: ${error}`);
-});
+module.exports = setup
+
+if (require.main === module) {
+  setup();
+}

@@ -1,6 +1,11 @@
-name: "Setup Regolith"
-description: "Install Regolith CLI"
-author: "nikitafine"
+name: setup-regolith
+description: Setup Regolith CLI on GitHub Actions
+author: nikitafine
+inputs:
+  version:
+    description: Version of Regolith to install
+    required: false
+    default: 0.0.17
 runs:
-  using: "node16"
-  main: "index.js"
+  using: node16
+  main: dist/index.js

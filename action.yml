@@ -1,6 +1,9 @@
 name: setup-regolith
 description: Setup Regolith CLI on GitHub Actions
 author: nikitafine
+branding:
+  icon: 'terminal'
+  color: 'blue'
 inputs:
   version:
     description: Version of Regolith to install

@@ -1,5 +1,6 @@
 # regolith-install-action
 [![Tests](https://github.com/BLOCKLINE-IO/regolith-install-action/actions/workflows/test.yml/badge.svg)](https://github.com/BLOCKLINE-IO/regolith-install-action/actions/workflows/test.yml)
+
 GitHub Action to setup Regolith in your workflow
 
 Usage in workflow yml:
